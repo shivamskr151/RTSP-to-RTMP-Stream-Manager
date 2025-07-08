@@ -1,0 +1,44 @@
+logLevel: info
+rtmp: true
+rtsp: true
+api: true
+apiAddress: :9997
+authMethod: internal
+authInternalUsers:
+  - user: wrakash
+    pass: akash@1997
+    permissions:
+      - action: api
+      - action: publish
+      - action: read
+webrtcAddress: :8889
+paths:
+  cam1:
+    source: rtsp://admin:netw9rknetw9rk@202.129.240.246:92
+    runOnReady: /usr/bin/ffmpeg -rtsp_transport tcp -i
+      rtsp://admin:netw9rknetw9rk@202.129.240.246:92 -c:v libx264 -preset
+      veryfast -crf 32 -maxrate 400k -bufsize 800k -g 30 -keyint_min 15 -vf
+      scale=640:360 -r 15 -an -f flv
+      rtmp://34.68.245.236/camera_0021/0021?username=wrakash&password=akash@1997
+      -y -reconnect 1 -reconnect_at_eof 1 -reconnect_streamed 1
+      -reconnect_delay_max 2 -timeout 5000000
+    runOnReadyRestart: true
+  cam2:
+    source: rtsp://admin:netw9rknetw9rk@202.129.240.246:91
+    runOnReady: /usr/bin/ffmpeg -rtsp_transport tcp -i
+      rtsp://admin:netw9rknetw9rk@202.129.240.246:91 -c:v libx264 -preset faster
+      -crf 28 -maxrate 800k -bufsize 1600k -g 30 -keyint_min 15 -vf
+      scale=854:480 -r 20 -an -f flv
+      rtmp://34.68.245.236/camera_0023/0023?username=wrakash&password=akash@1997
+      -y -reconnect 1 -reconnect_at_eof 1 -reconnect_streamed 1
+      -reconnect_delay_max 2 -timeout 5000000
+    runOnReadyRestart: true
+  cam-01:
+    source: rtsp://admin:netw9rknetw9rk@202.129.240.246:92
+    runOnReady: /usr/bin/ffmpeg -rtsp_transport tcp -i
+      rtsp://admin:netw9rknetw9rk@202.129.240.246:92 -c:v libx264 -preset
+      veryfast -crf 32 -maxrate 400k -bufsize 800k -g 30 -keyint_min 15 -vf
+      scale=640:360 -r 15 -an -f flv rtmp://43.205.29.76:1935/camera_0024/ -y
+      -reconnect 1 -reconnect_at_eof 1 -reconnect_streamed 1
+      -reconnect_delay_max 2 -timeout 5000000
+    runOnReadyRestart: true
