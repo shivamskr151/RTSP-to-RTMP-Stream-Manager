@@ -38,7 +38,7 @@ services:
       target: production
     container_name: rtsp-ui
     ports:
-      - "${RTSP_UI_PORT}:80"
+      - "${RTSP_UI_PORT}:3000"
     depends_on:
       - rtsp-api
     env_file:
